@@ -1,4 +1,3 @@
-
 package models;
 
 import java.io.Serializable;
@@ -7,17 +6,17 @@ import java.io.Serializable;
  *
  * @author Thomas Skiffington
  */
-public class Note implements Serializable{
-    
+public class Note implements Serializable {
+
     private String title;
     private String content;
-    
-    public Note(){
+
+    public Note() {
         title = "This is the title";
         content = "Contents go here";
-        
     }
-    public Note(String title, String content){
+
+    public Note(String title, String content) {
         this.title = title;
         this.content = content;
     }

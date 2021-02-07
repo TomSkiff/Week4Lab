@@ -1,4 +1,3 @@
-
 package servlets;
 
 import java.io.BufferedReader;
@@ -16,59 +15,50 @@ import models.Note;
 
 /**
  *
- * @author thoma
+ * @author Thomas Skiffington
  */
 public class NoteServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
-       
-       String path = getServletContext().getRealPath("/WEB-INF/note.txt");
-       Note current;
-       
-       
-       
-       BufferedReader br = new BufferedReader(new FileReader(new File(path)));
-       
-        current= new Note(br.readLine(),br.readLine());
+
+        String path = getServletContext().getRealPath("/WEB-INF/note.txt");
+        Note current;
+
+        BufferedReader br = new BufferedReader(new FileReader(new File(path)));
+
+        current = new Note(br.readLine(), br.readLine());
         br.close();
-       
-        request.setAttribute("title",current.getTitle());
-        request.setAttribute("content",current.getContent());
-       
-       if(request.getParameter("edit") == null){
-           getServletContext().getRequestDispatcher("/WEB-INF/viewnote.jsp").forward(request, response);
-       }
-       else{
-           getServletContext().getRequestDispatcher("/WEB-INF/editnote.jsp").forward(request, response);
-       }
-       
-              
+
+        request.setAttribute("title", current.getTitle());
+        request.setAttribute("content", current.getContent());
+
+        if (request.getParameter("edit") == null) {
+            getServletContext().getRequestDispatcher("/WEB-INF/viewnote.jsp").forward(request, response);
+        } else {
+            getServletContext().getRequestDispatcher("/WEB-INF/editnote.jsp").forward(request, response);
+        }
+
     }
-    
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String path = getServletContext().getRealPath("/WEB-INF/note.txt");
         Note editCurrent;
-        
-        editCurrent = new Note(request.getParameter("title"),request.getParameter("content"));
-        PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(path, false))); 
-        
+
+        editCurrent = new Note(request.getParameter("title"), request.getParameter("content"));
+        PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(path, false)));
+
         pw.println(editCurrent.getTitle());
         pw.println(editCurrent.getContent());
         pw.close();
-        
-        request.setAttribute("title",editCurrent.getTitle());
-        request.setAttribute("content",editCurrent.getContent());
-        
+
+        request.setAttribute("title", editCurrent.getTitle());
+        request.setAttribute("content", editCurrent.getContent());
+
         getServletContext().getRequestDispatcher("/WEB-INF/viewnote.jsp").forward(request, response);
     }
-    
- }
 
-
-
-
+}
